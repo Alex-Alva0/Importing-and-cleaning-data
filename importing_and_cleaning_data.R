@@ -83,3 +83,37 @@ wwc_3  <- wwc_2  %>%
 
 # Print the data
 wwc_3
+
+#PART 9:
+# Housekeeping for plot size
+options(repr.plot.width=6, repr.plot.height=4)
+
+# Line plot of attendance over time
+wwc_4  %>% 
+  ggplot(aes(date, attendance, color = venue)) +
+  geom_line() +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+       legend.text = element_text(size = 8)) +
+  guides(col = guide_legend(nrow = 3)) +
+  labs(title = "Stadium attendance during the tournament",
+       subtitle = "2019 FIFA Women's World Cup",
+       x = "Date", 
+       y = "Attendance",
+      color = "") 
+
+#PART 10:
+wwc_4 %>% arrange(desc(attendance))
+# What match had the higest attendance?
+# A: wk = SMIF, England vs. USA
+# B: wk = FIN, USA vs. Netherlands
+# C: wk = SMIF, Netherlands vs. Sweden
+
+ans_1  <- "B"
+
+# In what stadium was the match with the highest attendance played?
+# A: Groupama Stadium
+# B: Parc des Princes
+# C: Stade des Alpes
+
+ans_2  <- "A"
