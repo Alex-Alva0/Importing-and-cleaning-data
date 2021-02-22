@@ -56,3 +56,30 @@ wwc_1  <- wwc_raw  %>%
 dim(wwc_1)
 head(wwc_1, 10)
 tail(wwc_1, 10)
+
+#PART 4
+
+# Housekeeping
+wwc_2 <- wwc_1
+
+# Find and replace NA in column date
+index_date <- which(is.na(wwc_2$date))
+wwc_2[index_date, ]
+wwc_2$date[index_date] <- "2019-06-09"
+
+# Find and replace NA in column venue
+index_venue <- which(is.na(wwc_2$venue))
+wwc_2[index_venue, ]
+wwc_2$venue[index_venue] <- "Groupama Stadium"
+
+#Part 4
+
+# Separate columns and replace NA
+wwc_3  <- wwc_2  %>% 
+  separate(score, c("home_score", "away_score"), sep =  "-", convert = TRUE)  %>% 
+  separate(pks, c("home_pks", "away_pks"), sep = "-", convert = TRUE)  %>% 
+  mutate(home_pks = replace_na(home_pks, 0),
+         away_pks = replace_na(away_pks, 0))
+
+# Print the data
+wwc_3
