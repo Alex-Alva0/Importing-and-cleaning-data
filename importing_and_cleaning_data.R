@@ -84,6 +84,66 @@ wwc_3  <- wwc_2  %>%
 # Print the data
 wwc_3
 
+#PART 6
+# Housekeeping for plot size
+options(repr.plot.width=6, repr.plot.height=4)
+
+# Load package
+library(ggplot2)
+
+# Make a boxplot of attendance by venue and add the point data
+ggplot(wwc_3, aes(venue, attendance)) +
+  geom_boxplot() +
+  geom_jitter(color = "red", size = 0.5) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+p  <-  last_plot()
+
+soln_p  <- ggplot(soln_wwc_3, aes(venue, attendance)) +
+  geom_boxplot() +
+  geom_jitter(color = "red", size = 0.5) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1)) 
+
+
+#PART 7
+# Print the number of games played at each venue, and the min and max attendance at each venue
+wwc_3  %>% 
+  group_by(venue)  %>% 
+  summarize(nb_of_games = n(), 
+           min_attendance = min(attendance), 
+           max_attendance = max(attendance))
+
+# Correct the outlier
+wwc_4  <- wwc_3  %>% 
+  mutate(attendance = replace(attendance, which(attendance == 579000), 57900))
+
+# Print the updated summary table
+wwc_venue_summary  <- wwc_4 %>% 
+  group_by(venue)  %>% 
+  summarize(nb_of_games = n(), 
+           min_attendance = min(attendance), 
+           max_attendance = max(attendance))
+
+# Print an updated summary table 
+wwc_venue_summary
+
+
+#PART 8
+# Housekeeping for plot size
+options(repr.plot.width=6, repr.plot.height=4)
+
+# Prettier boxplot of attendance data by venue
+wwc_4  %>% 
+  ggplot(aes(x= forcats::fct_reorder(venue, attendance), y = attendance)) +
+  geom_boxplot() +
+  geom_jitter(color = "red", size = 0.5) +
+  coord_flip() +  
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, , hjust = 1)) +
+  labs(title = "Distribution of attendance by stadium",
+       subtitle = "2019 FIFA Women's World Cup", x = "Stadium", y = "Attendance")
+
+
 #PART 9:
 # Housekeeping for plot size
 options(repr.plot.width=6, repr.plot.height=4)
