@@ -72,7 +72,7 @@ index_venue <- which(is.na(wwc_2$venue))
 wwc_2[index_venue, ]
 wwc_2$venue[index_venue] <- "Groupama Stadium"
 
-#Part 4
+#Part 5
 
 # Separate columns and replace NA
 wwc_3  <- wwc_2  %>% 
